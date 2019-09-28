@@ -1,7 +1,7 @@
 package caddydb
 
 import (
-	"github.com/oxroio/caddy"
+	"github.com/caddyserver/caddy"
 	"fmt"
 	"time"
 	"encoding/json"
