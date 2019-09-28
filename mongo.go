@@ -3,19 +3,32 @@ package caddydb
 import (
 	"fmt"
 	"time"
-
+	"encoding/json"
+    	"os"
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
 )
 
+type Configuration struct {
+    Password    string
+}
+
 var session *mgo.Session
 
 func connect() error {
+	file, _ := os.Open("/home/caddy/conf.json")
+	defer file.Close()
+	decoder := json.NewDecoder(file)
+	configuration := Configuration{}
+	errf := decoder.Decode(&configuration)
+	if err != nil {
+	  fmt.Println("error:", errf)
+	}
 	fmt.Println("[caddydb] Connecting to MongoDB...")
 	newSession, err := mgo.DialWithInfo(&mgo.DialInfo{
 		Addrs:    []string{"localhost"},
 		Username: "caddy01",
-		Password: "8Mj9GGb41eKE46AGCf44xUNqFfbjb1fQ897R84Lu3v5SA69W5L9sL2Gf3LSpw1651P97cerYn5dSXV7mneBEnEaC77Rjbkyem4ahXzPK39w23LSgX5T1VvkJt8a4S5gY",
+		Password: configuration.Password,
 		Database: "caddy",
 	})
 
