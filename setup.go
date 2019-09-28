@@ -70,7 +70,7 @@ func connect() error {
 	decoder := json.NewDecoder(file)
 	configuration := Configuration{}
 	errf := decoder.Decode(&configuration)
-	if err != nil {
+	if errf != nil {
 	  fmt.Println("error:", errf)
 	}
 	fmt.Println("[caddydb] Connecting to MongoDB...")
