@@ -58,26 +58,21 @@ func onDemandCertObtained(eventType caddy.EventName, eventInfo interface{}) erro
 }
 
 
-type Configuration struct {
+type Config struct {
     Password    string
 }
 
 var session *mgo.Session
 
 func connect() error {
-	file, _ := os.Open("/home/caddy/conf.json")
-	defer file.Close()
-	decoder := json.NewDecoder(file)
-	configuration := Configuration{}
-	errf := decoder.Decode(&configuration)
-	if errf != nil {
-	  fmt.Println("error:", errf)
-	}
+
+	config, _ := LoadConfiguration()
+	fmt.Println(config)
 	fmt.Println("[caddydb] Connecting to MongoDB...")
 	newSession, err := mgo.DialWithInfo(&mgo.DialInfo{
 		Addrs:    []string{"localhost"},
 		Username: "caddy01",
-		Password: configuration.Password,
+		Password: config.Password,
 		Database: "caddy",
 	})
 
@@ -97,6 +92,18 @@ func connect() error {
 	fmt.Println("[caddydb] Connection established to MongoDB server version", info.Version)
 
 	return nil
+}
+
+func LoadConfiguration() Config {
+    var config Config
+    configFile, err := os.Open("/home/caddy/conf.json")
+    defer configFile.Close()
+    if err != nil {
+        fmt.Println(err.Error())
+    }
+    jsonParser := json.NewDecoder(configFile)
+    jsonParser.Decode(&config)
+    return config
 }
 
 func recordCertificateStatus(domain string, status string, failureReason error) error {
