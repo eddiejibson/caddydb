@@ -1,7 +1,7 @@
 package caddydb
 
 import (
-	"github.com/mholt/caddy"
+	"github.com/oxroio/caddy"
 )
 
 func init() {
