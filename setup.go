@@ -5,7 +5,7 @@ import (
 )
 
 func init() {
-	caddy.RegisterPlugin("certdb", caddy.Plugin{
+	caddy.RegisterPlugin("caddydb", caddy.Plugin{
 		ServerType: "http",
 		Action:     Setup,
 	})
