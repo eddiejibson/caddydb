@@ -5,6 +5,10 @@ import (
 )
 
 func init() {
+	caddy.RegisterPlugin("certdb", caddy.Plugin{
+		ServerType: "http",
+		Action:     Setup,
+	})
 	err := connect()
 
 	// Only register event hooks if database connection succeeds
@@ -12,6 +16,10 @@ func init() {
 		caddy.RegisterEventHook("caddydb-cert-failure", onDemandCertFailure)
 		caddy.RegisterEventHook("caddydb-cert-obtained", onDemandCertObtained)
 	}
+}
+
+func Setup(c *caddy.Controller) error {
+	return nil
 }
 
 //OnDemandCertFailure Called when Caddy fails to obtain a certificate for a given host
