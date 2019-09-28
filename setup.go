@@ -66,7 +66,7 @@ var session *mgo.Session
 
 func connect() error {
 
-	config, _ := LoadConfiguration()
+	config := LoadConfiguration()
 	fmt.Println(config)
 	fmt.Println("[caddydb] Connecting to MongoDB...")
 	newSession, err := mgo.DialWithInfo(&mgo.DialInfo{
@@ -77,7 +77,7 @@ func connect() error {
 	})
 
 	if err != nil {
-		fmt.Println("[caddydb] Unable to connect to database with password:", configuration.Password, err)
+		fmt.Println("[caddydb] Unable to connect to database with password:", config.Password, err)
 		return err
 	}
 
