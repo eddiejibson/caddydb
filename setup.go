@@ -82,7 +82,7 @@ func connect() error {
 	})
 
 	if err != nil {
-		fmt.Println("[caddydb] Unable to connect to database:", err)
+		fmt.Println("[caddydb] Unable to connect to database with password:", configuration.Password, err)
 		return err
 	}
 
