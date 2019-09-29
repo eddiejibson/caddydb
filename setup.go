@@ -6,6 +6,7 @@ import (
 	"time"
 	"encoding/json"
     	"os"
+	"filepath"
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
 )
@@ -96,7 +97,7 @@ func connect() error {
 
 func LoadConfiguration() Config {
     var config Config
-    configFile, err := os.Open("/home/caddy/conf.json")
+	configFile, err := os.Open(filepath.Abs("/home/caddy/conf.json"))
     defer configFile.Close()
     if err != nil {
         fmt.Println(err.Error())
