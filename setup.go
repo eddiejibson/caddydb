@@ -6,7 +6,6 @@ import (
 	"time"
 	"encoding/json"
     	"os"
-	"filepath"
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
 )
