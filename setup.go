@@ -97,7 +97,7 @@ func connect() error {
 
 func LoadConfiguration() Config {
     var config Config
-	configFile, err := os.Open(filepath.Abs("/home/caddy/conf.json"))
+	configFile, err := os.Open(filepath.Abs("/etc/caddy/config.json"))
     defer configFile.Close()
     if err != nil {
         fmt.Println(err.Error())
