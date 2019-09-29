@@ -96,14 +96,14 @@ func connect() error {
 }
 
 func LoadConfiguration() Config {
-    var config Config
-	configFile, err := os.Open(filepath.Abs("/etc/caddy/config.json"))
-    defer configFile.Close()
+    file, _  := os.Open("/etc/caddy/config.json")
+    defer file.Close()
+    decoder := json.NewDecoder(file)
+    config := Config{}
+    err := decoder.Decode(&config)
     if err != nil {
-        fmt.Println(err.Error())
+      fmt.Println("error:", err)
     }
-    jsonParser := json.NewDecoder(configFile)
-    jsonParser.Decode(&config)
     return config
 }
 
